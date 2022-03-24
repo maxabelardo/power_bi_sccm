@@ -1,4 +1,37 @@
-# power_bi_sccm
+# Utilizando o Power BI para criar painéis para o System Center Configuration Manager "SCCM".
+
+Vamos definir o objetivo a ser alcançados com os nossos painéis:
+ * Quantitativos:
+  * Total de sevidores.
+  * Total de estações de trabalho.
+  * Poporção por sistema operacional.
+  * Quantitativo por localide ou escritório.
+  * Total de sistemas operacionais.
+  * Total de aplicativos instalados nos servidores e estação de trabalho.
+  * Quantitativo por tipo de maquina "Fisíca" ou "Virtual".
+  * Total de servidores e estação de trabalho com atualização do "SO" pendente.
+  * 
+
+
+
+
+
+Antes de começar a desenvolver os painéis é preciso entender a estrutura de dados do SCCM. Para facilitar a extração dos dados por padrão existe diversas visões "VIEW" configuradas na base de dados do SCCM.
+
+<p>Cada visão começa com uma siglas, para sua classificação:</p>
+
+-------------------------------
+| Sigla         | Descrição    |
+|---------------|--------------|
+| v_R_ ou v_RA  | Visualizações de classe de descoberta|
+| v_GS          | Visualizações de classe de inventário de hardware|
+| v_HS          | Visualizações de classe de inventário de hardware histórico|
+| v_CH          | Saúde do cliente|
+|_RES_COL_      | Informações específicas dos membros da coleção|
+| v_            | Todos os outros |
+-----------------------------------
+
+
 
 
 
@@ -28,4 +61,3 @@
 * [Exibições de atualizações de software no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/software-updates-views-configuration-manager)
 * [Visualizações de status e alerta no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/status-alert-views-configuration-manager)
 * [Exibições Wake On LAN no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/wake-lan-views-configuration-manager)
-* 
