@@ -51,6 +51,12 @@ Antes de começar a desenvolver os painéis é preciso entender a estrutura de d
 
 
 ## Referências 
+* [SCCM Report for Windows 11 Version Count Dashboard](https://www.anoopcnair.com/sccm-report-for-windows-11-version-count-dashbd/)
+* [Exemplo de consultas para inventário de hardware no Configuration Manager](https://docs.microsoft.com/pt-br/mem/configmgr/develop/core/understand/sqlviews/sample-queries-hardware-inventory-configuration-manager)
+* [Exemplo de consultas para inventário de software no Configuration Manager](https://docs.microsoft.com/pt-br/mem/configmgr/develop/core/understand/sqlviews/sample-queries-software-inventory-configuration-manager)
+* [Exemplo de consultas para inteligência de ativos no Configuration Manager](https://docs.microsoft.com/pt-br/mem/configmgr/develop/core/understand/sqlviews/sample-queries-asset-intelligence-configuration-manager)
+* [HOW TO QUERY THE SQL SCCM DATABASE](https://systemcenterdudes.com/how-to-query-the-sql-sccm-database/)
+* [Below are some SCCM sql queries for your SSRS reports, all queries work with SCCM 2012 or greater.](https://mynexttech.com/sccm-custom-reports/sccm-sql-queries/)
 * [Visualizações de gerenciamento de aplicativos no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/application-management-views-configuration-manager)
 * [Visualizações de implantação de cliente no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/client-deployment-views-configuration-manager)
 * [Visualizações de status do cliente no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/client-status-views-configuration-manager)
@@ -73,3 +79,5 @@ Antes de começar a desenvolver os painéis é preciso entender a estrutura de d
 * [Exibições de atualizações de software no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/software-updates-views-configuration-manager)
 * [Visualizações de status e alerta no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/status-alert-views-configuration-manager)
 * [Exibições Wake On LAN no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/wake-lan-views-configuration-manager)
+* [Outro](https://docs.microsoft.com/pt-br/mem/configmgr/develop/core/understand/sqlviews/sample-queries-application-management-configuration-manager)
+
