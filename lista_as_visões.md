@@ -1,3 +1,89 @@
 # Vamos lista todas as visões necessária para alcançar os objetivos do projeto.
 
-## Lista todos os servidores e estações de trabalho.
+### v_GS_COMPUTER_SYSTEM
+Lista informações sobre os clientes do Configuration Manager, incluindo domínio, nome do computador, funções do Configuration Manager, status, tipo de sistema e muito mais. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+```
+SELECT [ResourceID]         -- Código ID do objeto.
+      ,[GroupID]            -- Código ID do grupo.
+      ,[Manufacturer0]      -- Marca do objeto.
+      ,[Model0]             -- Modelo do objeto.
+      ,[Name0]              -- Nome do objeto.
+      ,[Description0]       -- Descrição 
+      ,[Domain0]            -- Domínio da infraestrutura.
+      ,[DomainRole0]        -- Código do ID da regra de segurança.
+      ,[UserName0]          -- Último usuário conectado no objeto.
+      ,[SystemType0]        -- Tipo do sistema "OS" 64 ou 32 bits.
+      ,[RevisionID]         -- ***************
+      ,[AgentID]            -- ***************
+      ,[TimeStamp]          -- ***************
+  FROM [dbo].[v_GS_COMPUTER_SYSTEM]
+```
+### v_GS_SYSTEM_ENCLOSURE
+Lista informações sobre o gabinete do sistema encontrado nos clientes do Configuration Manager, incluindo tipos de chassi, número de série, etiqueta de ativo SMBIOS e assim por diante. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+
+```
+SELECT a.resourceid,         -------------------------------------------- Código ID do objeto.
+       a.revisionid,         -------------------------------------------- ***************
+       a.chassistypes0,      -------------------------------------------- Número que representa o tipo do objeto.
+       CASE                  -------------------------------------------- Tradução do campo "chassistypes0" para descrição do objeto. 
+          WHEN a.ChassisTypes0 = 1 THEN 'Other'
+          WHEN a.ChassisTypes0 = 2 THEN 'Unknown'
+          WHEN a.ChassisTypes0 = 3 THEN 'Desktop'
+          WHEN a.ChassisTypes0 = 4 THEN 'Low Profile Desktop'
+          WHEN a.ChassisTypes0 = 5 THEN 'Pizza Box'
+          WHEN a.ChassisTypes0 = 6 THEN 'Mini Tower'
+          WHEN a.ChassisTypes0 = 7 THEN 'Tower'
+          WHEN a.ChassisTypes0 = 8 THEN 'Portable'
+          WHEN a.ChassisTypes0 = 9 THEN 'Laptop'
+          WHEN a.ChassisTypes0 = 10 THEN 'Notebook'
+          WHEN a.ChassisTypes0 = 11 THEN 'Hand Held'
+          WHEN a.ChassisTypes0 = 12 THEN 'Docking Station'
+          WHEN a.ChassisTypes0 = 13 THEN 'All in One'
+          WHEN a.ChassisTypes0 = 14 THEN 'Sub Notebook'
+          WHEN a.ChassisTypes0 = 15 THEN 'Space-Saving'
+          WHEN a.ChassisTypes0 = 16 THEN 'Lunch-Box'
+          WHEN a.ChassisTypes0 = 17 THEN 'Main System Chassis'
+          WHEN a.ChassisTypes0 = 18 THEN 'Expansion Chassis'
+          WHEN a.ChassisTypes0 = 19 THEN 'Sub Chassis'
+          WHEN a.ChassisTypes0 = 20 THEN 'Bus Expansion Chassis'
+          WHEN a.ChassisTypes0 = 21 THEN 'Peripheral Chassis'
+          WHEN a.ChassisTypes0 = 22 THEN 'Storage Chassis'
+          WHEN a.ChassisTypes0 = 23 THEN 'Rack Mount Chassis'
+          WHEN a.ChassisTypes0 = 24 THEN 'Sealed-Case PC'
+          WHEN a.ChassisTypes0 = 30 THEN 'Tablet'
+          WHEN a.ChassisTypes0 = 31 THEN 'Convertible'
+          WHEN a.ChassisTypes0 = 32 THEN 'Detachable'
+          WHEN a.ChassisTypes0 = 35 THEN 'Desktop'
+          WHEN a.ChassisTypes0 = 36 THEN 'Desktop'
+        ELSE NULL
+       END AS 'ChassisType', 
+       a.serialnumber0,      -------------------------------------------- Número de serie do objeto.
+       a.smbiosassettag0,    -------------------------------------------- Número de serie do objeto.
+       a.groupid,            -------------------------------------------- Código ID do grupo.
+       a.timestamp           -- ***************
+FROM   v_gs_system_enclosure a
+       INNER JOIN (SELECT resourceid,
+                          Max(timestamp) rev
+                   FROM   v_gs_system_enclosure
+                   GROUP  BY resourceid) b
+               ON a.resourceid = b.resourceid
+                  AND a.timestamp = b.rev
+WHERE  groupid = 1 
+  
+```
+_Se repetem foi feito uma subconsulta para seleciona o último data do registro._
+
+Os valores possíveis de ChassisTypes são fornecidos na tabela no comando "CASE".
+Assim, os seguintes tipos de chassis são típicos para:
+* Desktop e notebooks: 8, 9, 10, 11, 12, 14, 18, 21, 30, 31, 32
+* áreas de trabalho: 3, 4, 5, 6, 7, 15, 16
+* servidores: 17,23
+
+
+
+## Referências
+* [jbolduan/Devices - Win 10 Servicing.sql/](https://gist.github.com/jbolduan/292687ec88257507e4ee0184b2a118fa)
+* [Win32_SystemEnclosure class] (https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-systemenclosure)
+* [Consulta SCCM e WMI para encontrar todos os laptops e desktops](http://woshub.com/sccm-and-wmi-query-to-find-all-laptops-and-desktops/)
+* [SCCM collection to list all the Laptop computers](https://eskonr.com/2010/11/sccm-collection-to-list-all-the-laptop-computers-2/)
+* 
