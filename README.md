@@ -5,13 +5,14 @@ Vamos definir o objetivo a ser alcançados com os nossos painéis:
   * Total de sevidores.
   * Total de estações de trabalho.
   * Poporção por sistema operacional.
-  * Quantitativo por localide ou escritório.
+  * Quantitativo de servidores e estação de trabalho por localide ou escritório.
   * Total de sistemas operacionais.
   * Total de aplicativos instalados nos servidores e estação de trabalho.
   * Quantitativo por tipo de maquina "Fisíca" ou "Virtual".
+  * Total de servidores e estação de trabalho com atualização do "SO" em dia.
   * Total de servidores e estação de trabalho com atualização do "SO" pendente.
-  * 
-
+  * Volume de disco "hd".
+* Qualitativo 
 
 
 
