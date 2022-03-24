@@ -2,20 +2,30 @@
 
 Vamos definir o objetivo a ser alcançados com os nossos painéis:
  * Quantitativos:
-  * Total de sevidores.
-  * Total de estações de trabalho.
-  * Poporção por sistema operacional.
-  * Quantitativo de servidores e estação de trabalho por localide ou escritório.
-  * Total de sistemas operacionais.
-  * Total de aplicativos instalados nos servidores e estação de trabalho.
-  * Quantitativo por tipo de maquina "Fisíca" ou "Virtual".
-  * Total de servidores e estação de trabalho com atualização do "SO" em dia.
-  * Total de servidores e estação de trabalho com atualização do "SO" pendente.
-  * Volume de disco "hd".
-* Qualitativo 
-
-
-
+   * Total de sevidores.
+   * Total de estações de trabalho.
+   * Total de estações de trabalho Ativos e desativado.
+   * Poporção por sistema operacional.
+   * Quantitativo de servidores e estações de trabalho por localide ou escritório.
+   * Total de sistemas operacionais.
+   * Total de aplicativos instalados nos servidores e estação de trabalho.
+   * Quantitativo por tipo de maquina "Fisíca" ou "Virtual".
+   * Total de servidores e estações de trabalho com atualização do "SO" em dia.
+   * Total de servidores e estações de trabalho com atualização do "SO" pendente.
+   * Volume de disco "hd".
+* Qualitativo:
+   * Lista de servidores e estações de trabalhopor "SO"
+   * Lista de servidores e estações de trabalhopor por localidade ou escritório.
+   * Lista de aplicativos instalado.
+   * BackList de aplicativos.
+   * Lista de servidores e estações de trabalho com aplicativos da backlist instalado.
+   * Lista de servidores e estações de trabalho com atualização do "SO" em dia.
+   * Lista de servidores e estações de trabalho com atualização do "SO" pendente.
+   * Lista de servidores e estações de trabalho com antivirus instalado e sem.
+* Graficos:
+   * ......
+   * ......
+   * ......
 
 Antes de começar a desenvolver os painéis é preciso entender a estrutura de dados do SCCM. Para facilitar a extração dos dados por padrão existe diversas visões "VIEW" configuradas na base de dados do SCCM.
 
