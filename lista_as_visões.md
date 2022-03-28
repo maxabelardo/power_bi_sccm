@@ -157,7 +157,7 @@ ORDER BY A.[ResourceID], A.[Index0]
 
 ## Referências
 * [jbolduan/Devices - Win 10 Servicing.sql/](https://gist.github.com/jbolduan/292687ec88257507e4ee0184b2a118fa)
-* [Win32_SystemEnclosure class] (https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-systemenclosure)
+* [Win32_SystemEnclosure class](https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-systemenclosure)
 * [Consulta SCCM e WMI para encontrar todos os laptops e desktops](http://woshub.com/sccm-and-wmi-query-to-find-all-laptops-and-desktops/)
 * [SCCM collection to list all the Laptop computers](https://eskonr.com/2010/11/sccm-collection-to-list-all-the-laptop-computers-2/)
 * [Visualizações de descoberta no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/discovery-views-configuration-manager)
