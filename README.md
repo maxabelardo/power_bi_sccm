@@ -51,6 +51,7 @@ Antes de começar a desenvolver os painéis é preciso entender a estrutura de d
 
 
 ## Referências 
+* [Compreendendo os dados do Configuration Manager](https://www.informit.com/articles/article.aspx?p=2514918)
 * [SCCM Report for Windows 11 Version Count Dashboard](https://www.anoopcnair.com/sccm-report-for-windows-11-version-count-dashbd/)
 * [Exemplo de consultas para inventário de hardware no Configuration Manager](https://docs.microsoft.com/pt-br/mem/configmgr/develop/core/understand/sqlviews/sample-queries-hardware-inventory-configuration-manager)
 * [Exemplo de consultas para inventário de software no Configuration Manager](https://docs.microsoft.com/pt-br/mem/configmgr/develop/core/understand/sqlviews/sample-queries-software-inventory-configuration-manager)
