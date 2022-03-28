@@ -1,6 +1,15 @@
 # Vamos lista todas as visões necessária para alcançar os objetivos do projeto.
 
-### v_GS_COMPUTER_SYSTEM
+* Listar todos os servidores é estações de trabalho.
+* Proporção por sistema operacional
+* 
+      
+
+
+## Listar todos os servidores é estações de trabalho.
+
+### Query dos servidores é estações de trabalho.
+#### v_GS_COMPUTER_SYSTEM
 Lista informações sobre os clientes do Configuration Manager, incluindo domínio, nome do computador, funções do Configuration Manager, status, tipo de sistema e muito mais. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
 ```
 SELECT [ResourceID]         -- Código ID do objeto.
@@ -18,7 +27,10 @@ SELECT [ResourceID]         -- Código ID do objeto.
       ,[TimeStamp]          -- ***************
   FROM [dbo].[v_GS_COMPUTER_SYSTEM]
 ```
-### v_GS_SYSTEM_ENCLOSURE
+
+
+### Query que identifica o tipo de objeto.
+#### v_GS_SYSTEM_ENCLOSURE
 Lista informações sobre o gabinete do sistema encontrado nos clientes do Configuration Manager, incluindo tipos de chassi, número de série, etiqueta de ativo SMBIOS e assim por diante. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
 
 ```
@@ -80,10 +92,37 @@ Assim, os seguintes tipos de chassis são típicos para:
 * servidores: 17,23
 
 
+## Proporção por sistema operacional
+
+### Query que retorna o sistema operacional do objeto.
+#### v_R_System
+Lista todos os recursos do sistema descobertos por ID de recurso, tipo de recurso, se o recurso é um cliente, que tipo de cliente, versão do cliente, nome NetBIOS, nome de usuário, sistema operacional, identificador exclusivo e muito mais. A exibição pode ser associada a outras exibições usando as colunas ResourceID , ResourceType , Netbios_Name0 e SMS_Unique_Identifier0 .
+```
+SELECT 
+    SYS.ResourceID,
+    SYS.Name0 as 'Hostname',
+    SYS.AD_Site_Name0 as 'ADSite',
+    SYS.User_Name0 as 'Username',
+    'MachineType' = CASE
+        WHEN (SYS.Is_Virtual_Machine0 = '1') THEN 'Virtual'
+        WHEN (SYS.Is_Virtual_Machine0 = '0') THEN 'Physical'
+        ELSE '_NI'
+        END,
+    SYS.Operating_System_Name_and0 as 'OS',
+    'Client Status' = CASE
+                WHEN SYS.Active0 = 1 THEN 'Active'
+                ELSE 'Inactive'
+            END
+FROM v_R_System SYS
+WHERE SYS.Client0 is null
+```
+
+
+
 
 ## Referências
 * [jbolduan/Devices - Win 10 Servicing.sql/](https://gist.github.com/jbolduan/292687ec88257507e4ee0184b2a118fa)
 * [Win32_SystemEnclosure class] (https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-systemenclosure)
 * [Consulta SCCM e WMI para encontrar todos os laptops e desktops](http://woshub.com/sccm-and-wmi-query-to-find-all-laptops-and-desktops/)
 * [SCCM collection to list all the Laptop computers](https://eskonr.com/2010/11/sccm-collection-to-list-all-the-laptop-computers-2/)
-* 
+* [Visualizações de descoberta no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/discovery-views-configuration-manager)
