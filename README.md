@@ -12,7 +12,7 @@ Vamos definir o objetivo a ser alcançados com os nossos painéis:
    * Quantitativo por tipo de máquina "Física" ou "Virtual".
    * Total de servidores e estações de trabalho com atualização do "SO" em dia.
    * Total de servidores e estações de trabalho com atualização do "SO" pendente.
-   * Volume de disco "hd".
+   * Volume dos discos "hd".
 
 * Qualitativo:
    * Lista de servidores e estações de trabalho por "SO"
