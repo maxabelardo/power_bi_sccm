@@ -2,13 +2,13 @@
 
 * Listar todos os servidores é estações de trabalho.
 * Proporção por sistema operacional
-* 
+* Volume dos discos "hd".
       
 
 
 ## Listar todos os servidores é estações de trabalho.
 
-### Query dos servidores é estações de trabalho.
+### Query que retorna os servidores é estações de trabalho.
 #### v_GS_COMPUTER_SYSTEM
 Lista informações sobre os clientes do Configuration Manager, incluindo domínio, nome do computador, funções do Configuration Manager, status, tipo de sistema e muito mais. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
 ```
@@ -94,7 +94,7 @@ Assim, os seguintes tipos de chassis são típicos para:
 
 ## Proporção por sistema operacional
 
-### Query que retorna o sistema operacional do objeto.
+### Query que retorna os sistema operacional do ambiente SCCM.
 #### v_R_System
 Lista todos os recursos do sistema descobertos por ID de recurso, tipo de recurso, se o recurso é um cliente, que tipo de cliente, versão do cliente, nome NetBIOS, nome de usuário, sistema operacional, identificador exclusivo e muito mais. A exibição pode ser associada a outras exibições usando as colunas ResourceID , ResourceType , Netbios_Name0 e SMS_Unique_Identifier0 .
 ```
@@ -117,6 +117,41 @@ FROM v_R_System SYS
 WHERE SYS.Client0 is null
 ```
 
+## Volume dos discos "hd"
+### Query que retorna os hd instalados nos servidore e estações de trabalho.
+
+#### v_GS_DISK
+Lista informações sobre as unidades de disco encontradas nos clientes do Configuration Manager. A exibição pode ser unida a outras exibições usando a coluna ResourceID .
+```
+SELECT DISTINCT 
+       A.[ResourceID]				-------------------------------------------- Código ID do objeto.      
+      ,[GroupID]				-------------------------------------------- Código ID do grupo.
+      ,[RevisionID]				-------------------------------------------- ***************
+      ,[AgentID]				-------------------------------------------- ***************
+      ,A.[TimeStamp]				-------------------------------------------- Data e hora da criação da informação.
+      ,[Caption0]				-------------------------------------------- Nome do driver do disco.
+      ,[Description0]				-------------------------------------------- Descrição.
+      ,[DeviceID0]				-------------------------------------------- ************
+      ,A.[Index0]				-------------------------------------------- Ordernação dos disco.
+      ,[InterfaceType0]				-------------------------------------------- Tipo de disco, IDE, SCSI ou USB.
+      ,[Manufacturer0]				-------------------------------------------- ***************
+      ,[MediaType0]				-------------------------------------------- ***************
+      ,[Model0]					-------------------------------------------- ***************
+      ,[Name0]					-------------------------------------------- ***************
+      ,[Partitions0]				-------------------------------------------- ***************
+      ,[PNPDeviceID0]				-------------------------------------------- ***************
+      ,[SCSIBus0]				-------------------------------------------- ***************
+      ,[SCSILogicalUnit0]			-------------------------------------------- ***************
+      ,[SCSIPort0]				-------------------------------------------- ***************
+      ,[SCSITargetId0]				-------------------------------------------- ***************
+      ,[Size0]					-------------------------------------------- Tamanho do disco em MB.
+      ,[SystemName0]				-------------------------------------------- ***************
+  FROM [dbo].[v_GS_DISK] AS A
+  INNER JOIN (SELECT [ResourceID],[Index0], MAX([TimeStamp]) AS 'TimeStamp'
+				FROM [dbo].[v_GS_DISK]
+				GROUP BY [ResourceID],[Index0] ) AS B ON B.ResourceID = A.ResourceID AND B.TimeStamp = A.TimeStamp 
+ORDER BY A.[ResourceID], A.[Index0]
+```
 
 
 
@@ -126,3 +161,4 @@ WHERE SYS.Client0 is null
 * [Consulta SCCM e WMI para encontrar todos os laptops e desktops](http://woshub.com/sccm-and-wmi-query-to-find-all-laptops-and-desktops/)
 * [SCCM collection to list all the Laptop computers](https://eskonr.com/2010/11/sccm-collection-to-list-all-the-laptop-computers-2/)
 * [Visualizações de descoberta no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/discovery-views-configuration-manager)
+* [Visualizações de inventário de hardware no Configuration Manager](https://docs.microsoft.com/en-us/mem/configmgr/develop/core/understand/sqlviews/hardware-inventory-views-configuration-manager)
