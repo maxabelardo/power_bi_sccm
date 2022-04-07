@@ -116,6 +116,8 @@ SELECT
                 WHEN SYS.Active0 = 1 THEN 'Active'
                 ELSE 'Inactive'
             END
+    ,SYS.operatingSystem0
+    ,SYS.operatingSystemVersion0	    
 FROM v_R_System SYS
 WHERE SYS.Client0 is null
 ```
