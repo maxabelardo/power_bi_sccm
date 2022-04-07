@@ -1,9 +1,12 @@
-# Vamos lista todas as visões necessária para alcançar os objetivos do projeto.
+# Vamos lista todas as "VIEW" visões necessária para alcançar os objetivos do projeto.
 
 * Listar todos os servidores é estações de trabalho.
+	* Query que retorna os servidores é estações de trabalho.
+	* Query que identifica o tipo de objeto  	
 * Proporção por sistema operacional
+	* Query que retorna os sistema operacional do ambiente SCCM. 
 * Volume dos discos "hd".
-      
+	* Query que retorna os hd instalados nos servidore e estações de trabalho.     
 
 
 ## Listar todos os servidores é estações de trabalho.
@@ -92,7 +95,7 @@ Assim, os seguintes tipos de chassis são típicos para:
 * servidores: 17,23
 
 
-## Proporção por sistema operacional
+## Sistemas Operacionais.
 
 ### Query que retorna os sistema operacional do ambiente SCCM.
 #### v_R_System
