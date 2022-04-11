@@ -123,6 +123,31 @@ SELECT
 FROM v_R_System SYS
 WHERE SYS.Client0 is null
 ```
+#### v_GS_OPERATING_SYSTEM
+Lista informações sobre o sistema operacional encontrado nos clientes do Configuration Manager. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+```
+SELECT [ResourceID]
+      ,[TimeStamp]
+      ,[Caption0]
+      ,[CSDVersion0]
+      ,[Description0]
+      ,[InstallDate0]
+      ,[LastBootUpTime0]
+      ,[Manufacturer0]
+      ,[Name0]
+      ,[OperatingSystemSKU0]
+      ,[Organization0]
+      ,[OSLanguage0]
+      ,[OSProductSuite0]
+      ,[RegisteredUser0]
+      ,[SerialNumber0]
+      ,[TotalSwapSpaceSize0]
+      ,[TotalVirtualMemorySize0]
+      ,[TotalVisibleMemorySize0]
+      ,[Version0]
+      ,[WindowsDirectory0]
+  FROM [dbo].[v_GS_OPERATING_SYSTEM]
+```
 
 ## Volume dos discos "hd"
 ### Query que retorna os hd instalados nos servidore e estações de trabalho.
