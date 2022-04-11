@@ -90,9 +90,11 @@ _Se repetem foi feito uma subconsulta para seleciona o último data do registro.
 
 Os valores possíveis de ChassisTypes são fornecidos na tabela no comando "CASE".
 Assim, os seguintes tipos de chassis são típicos para:
-* Desktop e notebooks: 8, 9, 10, 11, 12, 14, 18, 21, 30, 31, 32
-* áreas de trabalho: 3, 4, 5, 6, 7, 15, 16
-* servidores: 17,23
+* Desktop: 3, 4, 5, 6, 11, 12, 14 ,15, 16, 18, 21, 30, 31, 32
+* Notebooks: 8, 9, 10
+* Servidor Físicos: 7, 17, 23
+* Maquina Virtual: 1 
+* Servidores: 17,23
 
 
 ## Sistemas Operacionais.
