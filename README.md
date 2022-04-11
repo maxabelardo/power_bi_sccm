@@ -24,6 +24,7 @@ Vamos definir o objetivo a ser alcançados com os nossos painéis:
    * Lista de servidores e estações de trabalho com atualização do "SO" em dia.
    * Lista de servidores e estações de trabalho com atualização do "SO" pendente.
    * Lista de servidores e estações de trabalho com antivirus instalado e sem.
+   * Lista de IP's.
 * Gráficos:
    * ......
    * ......
