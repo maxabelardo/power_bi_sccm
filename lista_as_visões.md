@@ -11,6 +11,8 @@
 	* Query que retorna os CPU instalados nos servidore e estações de trabalho.
 * Lista de aplicativos instalado.
 	* Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
+* Lista de IP's. 
+	* Query que retorna todos os IP's.
 
 
 ## Listar todos os servidores é estações de trabalho.
@@ -227,6 +229,30 @@ SELECT A.ResourceID
      ,prg.Version0 AS [Application Version]
   FROM V_R_System as A
   LEFT JOIN v_ADD_REMOVE_PROGRAMS as prg ON A.ResourceID = prg.ResourceID  
+```
+
+## Lista de IP's.
+
+### Query que retorna todos os IP's.
+#### v_RA_System_IPSubnets
+Lista as sub-redes IP para recursos do sistema descobertos. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+```
+SELECT NA.[ResourceID]
+     , NA.[AdapterType0]
+     , NA.[ProductName0]
+     , NA.[MACAddress0]
+     , NAC.[DHCPEnabled0]
+     , NAC.[DHCPServer0]
+     , NAC.[DNSDomain0]
+     , NAC.[DNSHostName0]
+     , NAC.[IPAddress0]
+     , NAC.[IPEnabled0]
+     , NAC.[IPSubnet0]
+     , NAC.[MACAddress0]
+     , NAC.[ServiceName0]
+  FROM [dbo].[v_GS_NETWORK_ADAPTER] AS NA
+INNER JOIN [dbo].[v_GS_NETWORK_ADAPTER_CONFIGURATION] AS NAC ON NAC.ResourceID = NA.ResourceID AND NAC.MACAddress0 = NA.MACAddress0 AND NAC.IPEnabled0 = 1
+ORDER BY NA.[ResourceID]
 ```
 
 
