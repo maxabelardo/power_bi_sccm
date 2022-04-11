@@ -13,6 +13,7 @@ Vamos definir o objetivo a ser alcançados com os nossos painéis:
    * Total de servidores e estações de trabalho com atualização do "SO" em dia.
    * Total de servidores e estações de trabalho com atualização do "SO" pendente.
    * Volume dos discos "hd".
+   * Total de CPU's.
 
 * Qualitativo:
    * Lista de servidores e estações de trabalho por "SO"
