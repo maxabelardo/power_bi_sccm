@@ -7,6 +7,10 @@
 	* Query que retorna os sistema operacional do ambiente SCCM. 
 * Volume dos discos "hd".
 	* Query que retorna os hd instalados nos servidore e estações de trabalho.     
+* Total de CPU's.
+	* Query que retorna os CPU instalados nos servidore e estações de trabalho.
+* Lista de aplicativos instalado.
+	* Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
 
 
 ## Listar todos os servidores é estações de trabalho.
@@ -149,7 +153,7 @@ SELECT [ResourceID]
   FROM [dbo].[v_GS_OPERATING_SYSTEM]
 ```
 
-## Volume dos discos "hd"
+## Volume dos discos "hd".
 ### Query que retorna os hd instalados nos servidore e estações de trabalho.
 
 #### v_GS_DISK
@@ -185,6 +189,45 @@ SELECT DISTINCT
 ORDER BY A.[ResourceID], A.[Index0]
 ```
 
+## Total de CPU.
+### Query que retorna os CPU instalados nos servidore e estações de trabalho.
+#### v_GS_PROCESSOR
+Lista informações sobre os processadores encontrados nos clientes do Configuration Manager. A visualização pode ser unida a outras visualizações usando a coluna ResourceID e à visualização de inteligência de ativos v_LU_CPU usando a coluna CPUHash0 .
+```
+SELECT DISTINCT 
+       CPU.[ResourceID]
+	 ,(CPU.SystemName0) AS [Hostname]
+	 ,CPU.Manufacturer0
+	 ,CPU.Name0 AS Name
+	 ,COUNT(distinct CPU.SocketDesignation0) AS [Sockets]
+	 ,SUM(CPU.NumberOfCores0) AS [CoresPerSocket]
+ FROM 
+	[dbo].[v_GS_PROCESSOR] CPU
+	INNER JOIN  v_GS_COMPUTER_SYSTEM CSYS on CPU.ResourceID = CSYS.ResourceID
+ GROUP BY
+      CPU.[ResourceID]
+	 ,CPU.SystemName0
+	 ,CPU.Manufacturer0
+	 ,CPU.Name0
+	 ,CPU.NumberOfCores0
+```
+
+## Lista de aplicativos instalado.
+
+### Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
+#### v_Add_Remove_Programs
+Lista informações sobre o software instalado nos clientes do Configuration Manager registrados na lista Adicionar ou Remover Programas ou Programas e Recursos. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+```
+SELECT A.ResourceID
+     , A.Name0 AS [Computer Name]
+     , A.AD_Site_Name0 AS Site
+     , A.User_Name0 AS [Last Logged on User]
+	 , prg.Publisher0
+     , prg.DisplayName0 AS [Application Name]
+     ,prg.Version0 AS [Application Version]
+  FROM V_R_System as A
+  LEFT JOIN v_ADD_REMOVE_PROGRAMS as prg ON A.ResourceID = prg.ResourceID  
+```
 
 
 ## Referências
