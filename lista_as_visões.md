@@ -13,7 +13,8 @@
 	* Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
 * Lista de IP's. 
 	* Query que retorna todos os IP's.
-
+* Total de Mémoria RAM.
+	* Query que retorna o total de mémoria RAM.
 
 ## Listar todos os servidores é estações de trabalho.
 
@@ -155,7 +156,7 @@ SELECT [ResourceID]
   FROM [dbo].[v_GS_OPERATING_SYSTEM]
 ```
 
-## Volume dos discos "hd".
+## Volume dos discos "HD".
 ### Query que retorna os hd instalados nos servidore e estações de trabalho.
 
 #### v_GS_DISK
@@ -234,8 +235,12 @@ SELECT A.ResourceID
 ## Lista de IP's.
 
 ### Query que retorna todos os IP's.
-#### v_RA_System_IPSubnets
-Lista as sub-redes IP para recursos do sistema descobertos. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+#### v_GS_NETWORK_ADAPTER
+Lista informações sobre os adaptadores de rede encontrados nos clientes do Configuration Manager, incluindo tipo de adaptador, descrição, endereço MAC, fabricante, nome do serviço e assim por diante. Essa exibição pode ser associada a outras exibições usando a coluna ResourceID.
+
+#### v_GS_NETWORK_ADAPTER_CONFIGURATION
+Lista informações sobre a configuração dos adaptadores de rede encontrados nos clientes do Configuration Manager, incluindo o gateway IP padrão, se o DHCP está habilitado, o servidor DHCP, o domínio DNS, o endereço IP, a sub-rede IP e assim por diante. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+
 ```
 SELECT NA.[ResourceID]
      , NA.[AdapterType0]
@@ -254,6 +259,21 @@ SELECT NA.[ResourceID]
 INNER JOIN [dbo].[v_GS_NETWORK_ADAPTER_CONFIGURATION] AS NAC ON NAC.ResourceID = NA.ResourceID AND NAC.MACAddress0 = NA.MACAddress0 AND NAC.IPEnabled0 = 1
 ORDER BY NA.[ResourceID]
 ```
+
+## Total de Mémoria RAM.
+
+### Query que retorna o total de mémoria RAM.
+#### v_GS_X86_PC_MEMORY
+Lista informações sobre a memória encontrada nos clientes do Configuration Manager. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+
+```
+SELECT ResourceID
+     , TotalPageFileSpace0  / 1024 'TotalPageFileSpaceMB'
+	 , TotalPhysicalMemory0 / 1024 'TotalPhysicalMemoryMB' 
+	 , TotalVirtualMemory0  / 1024 'TotalVirtualMemoryMB'
+FROM v_GS_X86_PC_MEMORY
+```
+
 
 
 ## Referências
