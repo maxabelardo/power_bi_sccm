@@ -14,3 +14,8 @@ No Power BI Desktop é possível fazer os relacionamentos e todos os tratamento 
 * v_GS_NETWORK_ADAPTER_CONFIGURATION
 * v_GS_X86_PC_MEMORY
 
+## Query's de extração de dados:
+
+
+### Query Principal "Objetos"
+Lista de servidores e estações de trabalho.
