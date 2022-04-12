@@ -105,6 +105,8 @@ WHERE RS.Client0 IS NOT NULL
 | OSVersao                | Número da versão instada no objeto. |
 | NSerie                  | Número de série do objeto. |
 | TotalPhysicalMemory     | Total de mémoria RAM instalada no objeto. |
-| CPUFabricante           | 
+| CPUFabricante           | Fabricante do CPU instalado no objeto. |
+| CPUModelo               | Modelo do CPU do objeto. |
+| CPUSockets              | 
 
 
