@@ -90,3 +90,21 @@ SELECT RS.[ResourceID]
 WHERE RS.Client0 IS NOT NULL 
   AND CS.[Name0] IS NOT NULL 
 ```
+| Campos retornado        | Descrição                                                              |
+|-------------------------|------------------------------------------------------------------------|
+| ResourceID              | Id do objeto.  |
+| Fabricante              | Fabricante do objeto. |
+| Modelo                  | Modelo do objeto.   |
+| HostName                | Nome do objeto. |
+| Dominio                 | Domínio do AD que o objeto está vinculado. |
+| UserName                | Usuário do objeto. |
+| MachineType             | Retorna se o objeto é Virtual ou físico. |
+| Chassi                  | Retorna o tipo do objeto. |
+| OS                      | Sistema operacional instalado no objeto. |
+| OSPKVersao              | Especifica qual service pack está instalado no objeto. |
+| OSVersao                | Número da versão instada no objeto. |
+| NSerie                  | Número de série do objeto. |
+| TotalPhysicalMemory     | Total de mémoria RAM instalada no objeto. |
+| CPUFabricante           | 
+
+
