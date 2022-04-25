@@ -18,9 +18,10 @@ No Power BI Desktop é possível fazer os relacionamentos e todos os tratamento 
 
 
 ### Query Principal "Objetos"
-Lista de servidores e estações de trabalho.
+Lista de servidores e estações de trabalho, com todas as informações unitária dos objetos.
 
-Nestá "query" serão utilizada as "View" visões.
+
+Nestá "query" consulta serão utilizada as "View" visões.
 * v_R_System
 * v_GS_COMPUTER_SYSTEM
 * v_GS_OPERATING_SYSTEM
@@ -28,7 +29,7 @@ Nestá "query" serão utilizada as "View" visões.
 * v_GS_SYSTEM_ENCLOSURE
 * v_GS_PROCESSOR
 
-"Query" consulta:
+#### "Query" consulta:
 ```
 SELECT RS.[ResourceID]         
      , CS.[Manufacturer0]                AS 'Fabricante'
@@ -90,6 +91,9 @@ SELECT RS.[ResourceID]
 WHERE RS.Client0 IS NOT NULL 
   AND CS.[Name0] IS NOT NULL 
 ```
+
+#### Valores retoranado pela query.
+
 | Campos retornado        | Descrição                                                              |
 |-------------------------|------------------------------------------------------------------------|
 | ResourceID              | Id do objeto.  |
@@ -107,6 +111,27 @@ WHERE RS.Client0 IS NOT NULL
 | TotalPhysicalMemory     | Total de mémoria RAM instalada no objeto. |
 | CPUFabricante           | Fabricante do CPU instalado no objeto. |
 | CPUModelo               | Modelo do CPU do objeto. |
-| CPUSockets              | 
+| CPUSockets              | Número de sockets do objeto. |
+| CoresPerSocket	  | Número de cores virtuais. |
+| Status 		  | O status do objeto, se está ativo ou desativado. |
+| ClientSCCM 		  | Se o cliente do SCCM está instalado no objeto. |
+
+
+#### Explicação da "query" consulta:
+
+Para iniciar a consulta utilizaremos a "view" "v_R_System" como tabela principal dentro do " FROM [dbo].[v_R_System] AS RS " nestá tabela estão todos os objetos cadastrado no SCCM, ativo ou inativos. Para está tabela vamos usar um "select case" no campo "Is_Virtual_Machine0" para identificar se o objeto é uma maquina virtual ou física. O campo "RS.[ResourceID]" será utilizado como cháve estrangeira para as outras tabelas.
+```
+FROM [dbo].[v_R_System] AS RS       
+
+  CASE
+    WHEN (RS.Is_Virtual_Machine0 = '1') THEN 'Virtual'
+    WHEN (RS.Is_Virtual_Machine0 = '0') THEN 'Physical'
+   ELSE '_NI'
+  END  AS 'MachineType'  
+```
+
+
+
+
 
 
