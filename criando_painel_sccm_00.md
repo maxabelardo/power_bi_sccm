@@ -50,6 +50,7 @@ SELECT RS.[ResourceID]
          WHEN (SY.ChassisTypes0 = '1') AND (RS.Is_Virtual_Machine0 = '1')THEN 'Virtual Machine'
         ELSE 'Others'
        END                               AS 'Chassi' 
+     , BI.SerialNumber0              AS 'BioSerialNumber'
      , RS.Operating_System_Name_and0     AS 'OS'
      , OS.[CSDVersion0]                  AS 'OSPKVersao'
      , OS.[Version0]                     AS 'OSVersao'
@@ -69,6 +70,7 @@ SELECT RS.[ResourceID]
        END                                AS 'ClientSCCM'
   FROM [dbo].[v_R_System] AS RS
   LEFT JOIN [dbo].[v_GS_COMPUTER_SYSTEM]  AS CS ON RS.[ResourceID] = CS.[ResourceID]
+  LEFT JOIN [dbo].[v_GS_PC_BIOS]          AS BI ON RS.[ResourceID] = BI.[ResourceID]
   LEFT JOIN [dbo].[v_GS_OPERATING_SYSTEM] AS OS ON OS.[ResourceID] = CS.[ResourceID]
   LEFT JOIN [dbo].[v_GS_X86_PC_MEMORY]    AS ME ON RS.[ResourceID] = ME.[ResourceID]
   LEFT JOIN [dbo].[v_GS_SYSTEM_ENCLOSURE] AS SY ON RS.[ResourceID] = SY.[ResourceID]
@@ -134,4 +136,27 @@ FROM [dbo].[v_R_System] AS RS
 
 
 
+### Query Ativos de rede dos objetos.
+Lista as placas de redes instalada nos objetos, com IP ou sem IP configurado.
+
+
+
+
+#### "Query" consulta:
+```
+SELECT DISTINCT 
+       CS.ResourceID
+     , CS.Name0          AS 'HostName'
+     , CS.UserName0      AS 'LastLogon'
+     , CS.Manufacturer0
+     , CS.Model0
+     , NAC.IPEnabled0
+     , NAC.MACAddress0 
+     , NA.Name0          AS 'LanAdapter'
+     , NAC.IPAddress0
+ FROM dbo.v_GS_COMPUTER_SYSTEM CS
+ INNER JOIN dbo.v_GS_NETWORK_ADAPTER NA ON CS.ResourceID = NA.ResourceID 
+ INNER JOIN dbo.v_GS_NETWORK_ADAPTER_CONFIGUR NAC ON CS.ResourceID = NAC.ResourceID and NA.DeviceID0 = NAC.Index0 
+
+```
 
