@@ -15,6 +15,8 @@
 	* Query que retorna o total de mémoria RAM.
 * Lista de aplicativos instalado.
 	* Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
+	* Caso seja nescessário mais informações das aplicações instalada as visões "view" abaixo deverão forneser estas informações.
+
 
 ## Listar todos os servidores é estações de trabalho.
 
@@ -224,6 +226,10 @@ Lista informações sobre os adaptadores de rede encontrados nos clientes do Con
 #### v_GS_NETWORK_ADAPTER_CONFIGURATION
 Lista informações sobre a configuração dos adaptadores de rede encontrados nos clientes do Configuration Manager, incluindo o gateway IP padrão, se o DHCP está habilitado, o servidor DHCP, o domínio DNS, o endereço IP, a sub-rede IP e assim por diante. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
 
+#### v_RA_System_IPSubnets
+Lista as sub-redes IP para recursos do sistema descobertos. A exibição pode ser ingressada em outras exibições usando a coluna ResourceID.
+
+Query - 1:
 ```
 SELECT NA.[ResourceID]
      , NA.[AdapterType0]
@@ -242,6 +248,30 @@ SELECT NA.[ResourceID]
 INNER JOIN [dbo].[v_GS_NETWORK_ADAPTER_CONFIGURATION] AS NAC ON NAC.ResourceID = NA.ResourceID AND NAC.MACAddress0 = NA.MACAddress0 AND NAC.IPEnabled0 = 1
 ORDER BY NA.[ResourceID]
 ```
+Query - 2:
+```
+SELECT DISTINCT
+       A.ResourceID
+     , B.[ResourceID]
+     , B.[AdapterType0]
+     , B.[ProductName0]
+     , B.[MACAddress0]
+     , IP.ResourceID
+	 , IP.IP_Subnets0
+	 , NAC.[IPAddress0]
+	 , NAC.[IPSubnet0]
+FROM v_R_System A
+LEFT JOIN [dbo].[v_GS_NETWORK_ADAPTER] B ON B.ResourceID = A.ResourceID
+LEFT JOIN v_RA_System_IPSubnets IP ON A.ResourceID = IP.ResourceID
+LEFT JOIN [dbo].[v_GS_NETWORK_ADAPTER_CONFIGURATION] AS NAC ON NAC.ResourceID = B.ResourceID AND NAC.MACAddress0 = B.MACAddress0 AND NAC.IPEnabled0 = 1
+WHERE B.[AdapterType0] IS NOT NULL
+  AND B.[MACAddress0] IS NOT NULL
+  AND IP.ResourceID IS NOT NULL
+  AND IP.IP_Subnets0 IS NOT NULL
+  AND NAC.[IPAddress0] IS NOT NULL
+  AND NAC.[IPSubnet0] IS NOT NULL
+```
+
 
 ## Total de Mémoria RAM.
 
@@ -278,7 +308,7 @@ SELECT A.ResourceID
 
 ### Caso seja nescessário mais informações das aplicações instalada as visões "view" abaixo deverão forneser estas informações.
 
-#### v_GS_SoftwareFile
+#### v_SoftwareProduct
 Lista os arquivos e IDs de produtos associados em cada cliente do Configuration Manager. A exibição pode ser unida a outras exibições usando a coluna ResourceID .
 
 #### v_SoftwareFile
