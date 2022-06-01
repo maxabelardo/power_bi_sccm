@@ -9,12 +9,12 @@
 	* Query que retorna os hd instalados nos servidore e estações de trabalho.     
 * Total de CPU's.
 	* Query que retorna os CPU instalados nos servidore e estações de trabalho.
-* Lista de aplicativos instalado.
-	* Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
 * Lista de IP's. 
 	* Query que retorna todos os IP's.
 * Total de Mémoria RAM.
 	* Query que retorna o total de mémoria RAM.
+* Lista de aplicativos instalado.
+	* Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
 
 ## Listar todos os servidores é estações de trabalho.
 
@@ -215,23 +215,6 @@ SELECT DISTINCT
 	 ,CPU.NumberOfCores0
 ```
 
-## Lista de aplicativos instalado.
-
-### Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
-#### v_Add_Remove_Programs
-Lista informações sobre o software instalado nos clientes do Configuration Manager registrados na lista Adicionar ou Remover Programas ou Programas e Recursos. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
-```
-SELECT A.ResourceID
-     , A.Name0 AS [Computer Name]
-     , A.AD_Site_Name0 AS Site
-     , A.User_Name0 AS [Last Logged on User]
-	 , prg.Publisher0
-     , prg.DisplayName0 AS [Application Name]
-     ,prg.Version0 AS [Application Version]
-  FROM V_R_System as A
-  LEFT JOIN v_ADD_REMOVE_PROGRAMS as prg ON A.ResourceID = prg.ResourceID  
-```
-
 ## Lista de IP's.
 
 ### Query que retorna todos os IP's.
@@ -274,6 +257,44 @@ SELECT ResourceID
 FROM v_GS_X86_PC_MEMORY
 ```
 
+
+## Lista de aplicativos instalado.
+
+### Query que retorna todas as aplicações instadas nos Servidores e estações de trabalho.
+
+#### v_Add_Remove_Programs
+Lista informações sobre o software instalado nos clientes do Configuration Manager registrados na lista Adicionar ou Remover Programas ou Programas e Recursos. A exibição pode ser unida a outras exibições usando a coluna ResourceID.
+```
+SELECT A.ResourceID
+     , A.Name0 AS [Computer Name]
+     , A.AD_Site_Name0 AS Site
+     , A.User_Name0 AS [Last Logged on User]
+	 , prg.Publisher0
+     , prg.DisplayName0 AS [Application Name]
+     ,prg.Version0 AS [Application Version]
+  FROM V_R_System as A
+  LEFT JOIN v_ADD_REMOVE_PROGRAMS as prg ON A.ResourceID = prg.ResourceID  
+```
+
+### Caso seja nescessário mais informações das aplicações instalada as visões "view" abaixo deverão forneser estas informações.
+
+#### v_GS_SoftwareFile
+Lista os arquivos e IDs de produtos associados em cada cliente do Configuration Manager. A exibição pode ser unida a outras exibições usando a coluna ResourceID .
+
+#### v_SoftwareFile
+Lista todos os arquivos distintos, por ID de arquivo, que foram inventariados no site, incluindo nome do arquivo, versão do arquivo, descrição, tamanho do arquivo e produto associado. A exibição pode ser unida a outras exibições usando as colunas FileID e ProductID .
+```
+SELECT A.ResourceID
+     , A.Name0 AS [Computer Name]
+     , S.CompanyName
+     , S.ProductName
+	 , F.FileName
+	 , F.FileVersion
+	 , F.FilePath
+FROM V_R_System AS A
+INNER JOIN v_GS_SoftwareProduct AS S ON S.ResourceID = A.ResourceID
+INNER JOIN v_GS_SoftwareFile AS F ON F.ResourceID = S.ResourceID AND F.ProductId = S.ProductID
+```
 
 
 ## Referências
