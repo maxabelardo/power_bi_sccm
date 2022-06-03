@@ -257,9 +257,9 @@ SELECT DISTINCT
      , B.[ProductName0]
      , B.[MACAddress0]
      , IP.ResourceID
-	 , IP.IP_Subnets0
-	 , NAC.[IPAddress0]
-	 , NAC.[IPSubnet0]
+     , IP.IP_Subnets0
+     , NAC.[IPAddress0]
+     , NAC.[IPSubnet0]
 FROM v_R_System A
 LEFT JOIN [dbo].[v_GS_NETWORK_ADAPTER] B ON B.ResourceID = A.ResourceID
 LEFT JOIN v_RA_System_IPSubnets IP ON A.ResourceID = IP.ResourceID
@@ -282,8 +282,8 @@ Lista informações sobre a memória encontrada nos clientes do Configuration Ma
 ```
 SELECT ResourceID
      , TotalPageFileSpace0  / 1024 'TotalPageFileSpaceMB'
-	 , TotalPhysicalMemory0 / 1024 'TotalPhysicalMemoryMB' 
-	 , TotalVirtualMemory0  / 1024 'TotalVirtualMemoryMB'
+     , TotalPhysicalMemory0 / 1024 'TotalPhysicalMemoryMB' 
+     , TotalVirtualMemory0  / 1024 'TotalVirtualMemoryMB'
 FROM v_GS_X86_PC_MEMORY
 ```
 
@@ -299,9 +299,9 @@ SELECT A.ResourceID
      , A.Name0 AS [Computer Name]
      , A.AD_Site_Name0 AS Site
      , A.User_Name0 AS [Last Logged on User]
-	 , prg.Publisher0
+     , prg.Publisher0
      , prg.DisplayName0 AS [Application Name]
-     ,prg.Version0 AS [Application Version]
+     , prg.Version0 AS [Application Version]
   FROM V_R_System as A
   LEFT JOIN v_ADD_REMOVE_PROGRAMS as prg ON A.ResourceID = prg.ResourceID  
 ```
@@ -318,9 +318,9 @@ SELECT A.ResourceID
      , A.Name0 AS [Computer Name]
      , S.CompanyName
      , S.ProductName
-	 , F.FileName
-	 , F.FileVersion
-	 , F.FilePath
+     , F.FileName
+     , F.FileVersion
+     , F.FilePath
 FROM V_R_System AS A
 INNER JOIN v_GS_SoftwareProduct AS S ON S.ResourceID = A.ResourceID
 INNER JOIN v_GS_SoftwareFile AS F ON F.ResourceID = S.ResourceID AND F.ProductId = S.ProductID
